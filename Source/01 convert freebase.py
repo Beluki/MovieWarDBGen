@@ -3,8 +3,8 @@
 
 """
 Filters the output from "00 download freebase.json" to match
-the MovieWar JSON format. Removes movies with no release date
-or no director/s, etc...
+the MovieWar JSON format. Removes movies with no name
+or release date, etc...
 """
 
 
