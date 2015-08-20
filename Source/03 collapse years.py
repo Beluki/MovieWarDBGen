@@ -59,7 +59,7 @@ def main():
             names[name].append(year)
 
     # save:
-    with open('03 movies (years collapsed).conf', mode = 'wb') as descriptor:
+    with open('03 movies (years collapsed).json', mode = 'wb') as descriptor:
         for name in names:
             movie = { 'name': name, 'years': names[name] }
 
