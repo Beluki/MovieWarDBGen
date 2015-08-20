@@ -24,7 +24,7 @@ popular. No Bollywood or obscure titles.
 
 Sample output:
 
-```bash
+```text
 $ "00 download freebase.py"
 Total requests: 1 Total movies: 3000
 Total requests: 2 Total movies: 6000
@@ -44,7 +44,7 @@ true for all the movies in the list.
 
 Sample output:
 
-```bash
+```text
 $ "01 convert freebase.py"
 01 convert freebase.py: error: Invalid year range: 2002 for movie: Stevie, skipping...
 01 convert freebase.py: error: Empty date, skipping movie: Siddhartha
@@ -64,7 +64,7 @@ From the 9169 movies, 7616 match in both databases.
 
 Sample output:
 
-```bash
+```text
 $ "02 match omdb.py"
 02 match omdb.py: error: 1 0/1 - Movie title mismatch: Pimpernel Smith
 02 match omdb.py: error: 2 0/2 - Movie title mismatch: $
@@ -83,14 +83,14 @@ $ "02 match omdb.py"
 The fourth script, `03 collapse years.py`, looks for duplicate movie names
 and years. For example, it converts this:
 
-```bash
+```json
 {"name": "Jane Eyre", "year": "2011"}
 {"name": "Jane Eyre", "year": "1996"}
 ```
 
 Into this:
 
-```bash
+```json
 {"name": "Jane Eyre", "years": ["2011", "1996"]}
 ```
 
@@ -99,7 +99,7 @@ produces this error.
 
 Sample output:
 
-```bash
+```text
 $ "03 collapse years.py"
 03 collapse years.py: error: Skipping duplicate year for movie: A Doll's House...
 ```
