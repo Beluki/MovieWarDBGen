@@ -12,10 +12,11 @@ already available in the [Releases][] tab.
 
 ## How it works
 
-The first script, `00 download freebase.py`, uses the Freebase API
+The first script, `00 download freebase.py`, uses the [Freebase API][]
 to download information for about 9200 movies, using Brad Bourland's
 [top movies list][] as a source.
 
+[Freebase API]: https://developers.google.com/freebase/
 [top movies list]: http://www.nytimes.com/2010/04/18/movies/18bourland.html?_r=0
 
 This is a great starting point for a trivia game. It's a big enough
@@ -59,7 +60,6 @@ exact same title and date on both Freebase and OMDB are kept.
 
 In a trivia game, quality is more important than quantity.
 Using multiple sources of information guarantees correctness.
-
 From the 9169 movies, 7616 match in both databases.
 
 Sample output:
