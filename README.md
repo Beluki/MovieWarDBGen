@@ -26,7 +26,6 @@ popular. No Bollywood or obscure titles.
 Sample output:
 
 ```text
-$ "00 download freebase.py"
 Total requests: 1 Total movies: 3000
 Total requests: 2 Total movies: 6000
 Total requests: 3 Total movies: 9000
