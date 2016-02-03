@@ -6,12 +6,12 @@ Checks each movie date from "01 convert freebase.json"
 against the OMDB API, removing movies where the title and the date
 do not match.
 
-Running this script can take two hours or more, since there
+Running this script can take one, two hours or more, since there
 are about 9200 movies to check.
 
 After running, two output files are created:
-   02 movies.json - the movies that matched.
-   02 movies mismatch.json - the movies that didn't match, for logging.
+   02 match omdb.json - the movies that matched.
+   02 mismatch omdb.json - the movies that didn't match, for logging.
 """
 
 
@@ -77,48 +77,49 @@ def write_results(results, filename):
 
 def main():
     input_movies = open('01 convert freebase.json', 'r', encoding = 'utf-8').read().splitlines()
-    output_movies = []
+
+    match_movies = []
     mismatch_movies = []
 
-    total_ok = 0
-    total_miss = 0
+    total_match = 0
+    total_mismatch = 0
 
     for index, line in enumerate(input_movies, 1):
         movie = json.loads(line)
 
-        # OMDB barfs on (even escaped) double quotes:
-        title = movie['name'].replace('"', '')
+        title = movie['name']
         year = movie['year']
 
         omdbjson = request_json(title, year)
 
-        # title match:
+        # validate title match:
         omdbtitle = omdbjson.get('Title', '') or ''
         omdbtitle = omdbtitle.strip()
 
-        if omdbtitle == '' or not omdbtitle == title:
+        if omdbtitle == '' or omdbtitle != title:
             mismatch_movies.append(movie)
-            total_miss += 1
-            errln('{} {}/{} - Movie title mismatch: {}'.format(index, total_ok, total_miss, title))
+            total_mismatch += 1
+            outln('{} - ok: {} miss: {} - movie title mismatch.'.format(index, total_match, total_mismatch))
             continue
 
-        # year match:
+        # validate year match:
         omdbyear = omdbjson.get('Year', '') or ''
         omdbyear = omdbyear.strip()
         omdbyear = omdbyear[:4]
 
-        if omdbyear == '' or not omdbyear == year:
+        if omdbyear == '' or omdbyear != year:
             mismatch_movies.append(movie)
-            total_miss += 1
-            errln('{} {}/{} - Movie year mismatch: {}'.format(index, total_ok, total_miss, title))
+            total_mismatch += 1
+            outln('{} - ok: {} miss: {} - movie year mismatch.'.format(index, total_match, total_mismatch))
             continue
 
-        total_ok += 1
-        outln('{} {}/{} - Movie ok: {}'.format(index, total_ok, total_miss, title))
-        output_movies.append(movie)
+        # ok in both:
+        match_movies.append(movie)
+        total_match += 1
+        outln('{} - ok: {} miss: {} - movie ok.'.format(index, total_match, total_mismatch))
 
-    write_results(output_movies, '02 movies.json')
-    write_results(mismatch_movies, '02 movies mismatch.json')
+    write_results(match_movies, '02 match omdb.json')
+    write_results(mismatch_movies, '02 mismatch omdb.json')
 
 
 if __name__ == '__main__':

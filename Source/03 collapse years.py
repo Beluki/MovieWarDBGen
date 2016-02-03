@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Checks movies from "02 movies.json" and collapses movies with the
+Checks movies from "02 match omdb.json" and collapses movies with the
 same title but different years into one record with the years
 as a list.
 
@@ -17,7 +17,8 @@ Output:
 
 {"name": "Jane Eyre", "years": ["2011", "1996"]}
 
-The output is saved as: "03 movies (years collapsed).json"
+The output is saved as: "03 collapse years.json".
+It also skips duplicate years.
 """
 
 
@@ -42,8 +43,8 @@ def errln(line):
 # Entry point:
 
 def main():
-    names = OrderedDict()
-    input_movies = open('02 movies.json', 'r', encoding = 'utf-8').read().splitlines()
+    input_movies = open('02 match omdb.json', 'r', encoding = 'utf-8').read().splitlines()
+    output_movies = OrderedDict()
 
     for line in input_movies:
         movie = json.loads(line)
@@ -51,17 +52,20 @@ def main():
         name = movie['name']
         year = movie['year']
 
-        names.setdefault(name, [])
+        output_movies.setdefault(name, [])
 
-        if year in names[name]:
-            errln('Skipping duplicate year for movie: {}...'.format(name))
+        if year in output_movies[name]:
+            outln('Skipping duplicate year for movie: {}...'.format(name))
         else:
-            names[name].append(year)
+            output_movies[name].append(year)
 
-    # save:
-    with open('03 movies (years collapsed).json', mode = 'wb') as descriptor:
-        for name in names:
-            movie = { 'name': name, 'years': names[name] }
+    # save, years first:
+    with open('03 collapse years.json', mode = 'wb') as descriptor:
+        for name, years in output_movies.items():
+            movie = OrderedDict()
+
+            movie['years'] = years
+            movie['name'] = name
 
             jsonbytes = json.dumps(movie).encode('utf-8')
             descriptor.write(jsonbytes)

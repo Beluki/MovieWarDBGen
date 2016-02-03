@@ -40,7 +40,7 @@ def main():
         name = name.strip()
 
         if name == '':
-            errln('Empty name, skipping line: {}'.format(index))
+            outln('Empty name, skipping movie: {}'.format(index))
             continue
 
         # validate date:
@@ -48,24 +48,25 @@ def main():
         date = date.strip()
 
         if date == '':
-            errln('Empty date, skipping movie: {}'.format(name))
+            outln('Empty date, skipping movie: {}'.format(name))
             continue
 
         # 'initial_release_date' is in the following format: (YYYY-MM-DD)
         # for the trivia we need the year (and sometimes only the year is present)
         year = date[:4]
 
-        # validate the date:
+        # validate the year:
         try:
             year_as_number = int(year)
 
-            # all the movies in the 9200 movie set are supposed to be between those dates:
-            if (year_as_number < 1900) or (year_as_number > 2000):
-                errln('Invalid year range: {} for movie: {}, skipping...'.format(year, name))
+            # all the movies in the 9200 movie set are supposed to be
+            # between 1900 and 2000:
+            if not (1900 <= year_as_number <= 2000):
+                outln('Invalid year range: {} for movie: {}, skipping...'.format(year, name))
                 continue
 
         except ValueError:
-            errln('Invalid date: {}, for movie: {}'.format(date, name))
+            outln('Invalid date: {}, for movie: {}'.format(date, name))
             continue
 
         # create a new JSON value, using the trivia format:

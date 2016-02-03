@@ -46,10 +46,11 @@ true for all the movies in the list.
 Sample output:
 
 ```text
-$ "01 convert freebase.py"
-01 convert freebase.py: error: Invalid year range: 2002 for movie: Stevie, skipping...
-01 convert freebase.py: error: Empty date, skipping movie: Siddhartha
-...
+Invalid year range: 2002 for movie: Stevie, skipping...
+Empty date, skipping movie: Siddhartha
+Invalid year range: 2003 for movie: Johnny Thunders: What About Me, skipping...
+Invalid year range: 2004 for movie: The Big Bounce, skipping...
+Invalid year range: 2004 for movie: Grizzly Falls, skipping...
 ```
 
 The third script, `02 match omdb.py`, uses the [OMDB API][] to check
@@ -60,24 +61,21 @@ exact same title and date on both Freebase and OMDB are kept.
 
 In a trivia game, quality is more important than quantity.
 Using multiple sources of information guarantees correctness.
-From the 9169 movies, 7616 match in both databases.
+From the 9169 movies, 7601 match in both databases.
 
 Sample output:
 
 ```text
-$ "02 match omdb.py"
-02 match omdb.py: error: 1 0/1 - Movie title mismatch: Pimpernel Smith
-02 match omdb.py: error: 2 0/2 - Movie title mismatch: $
-3 1/2 - Movie ok: 'Gator Bait
-4 2/2 - Movie ok: 'Til We Meet Again
-5 3/2 - Movie ok: 'night, Mother
-6 4/2 - Movie ok: -30-
-02 match omdb.py: error: 7 4/3 - Movie title mismatch: ...And Justice for All
-02 match omdb.py: error: 8 4/4 - Movie title mismatch: ...tick...tick...tick...
-9 5/4 - Movie ok: 10
-10 6/4 - Movie ok: 10 Rillington Place
-11 7/4 - Movie ok: 10 Things I Hate About You
-...
+1 - ok: 0 miss: 1 - movie title mismatch.
+2 - ok: 0 miss: 2 - movie title mismatch.
+3 - ok: 1 miss: 2 - movie ok.
+4 - ok: 2 miss: 2 - movie ok.
+5 - ok: 3 miss: 2 - movie ok.
+6 - ok: 4 miss: 2 - movie ok.
+7 - ok: 4 miss: 3 - movie title mismatch.
+8 - ok: 4 miss: 4 - movie title mismatch.
+9 - ok: 5 miss: 4 - movie ok.
+10 - ok: 6 miss: 4 - movie ok.
 ```
 
 The fourth script, `03 collapse years.py`, looks for duplicate movie names
@@ -94,14 +92,13 @@ Into this:
 {"name": "Jane Eyre", "years": ["2011", "1996"]}
 ```
 
-It also checks for duplicate years. Only one movie in the entire dataset
-produces this error.
+It also checks for duplicate years.
+Only one movie in the entire dataset produces this error.
 
 Sample output:
 
 ```text
-$ "03 collapse years.py"
-03 collapse years.py: error: Skipping duplicate year for movie: A Doll's House...
+Skipping duplicate year for movie: A Doll's House...
 ```
 
 ## Portability
@@ -110,28 +107,27 @@ Information and error messages are written to stdout and stderr
 respectively, using the current platform newline format and encoding.
 
 Note that since the scripts were a one-off effort (once we have the JSON
-there's no need to run them again), they actually do very little error checking.
+there's no need to run them again), they actually do very little to no
+error checking.
 
 There are no options or arguments.
 
 The output JSON is written as UTF-8 without BOM, using Unix newlines.
 
-I wrote and ran them on Windows 7 x86-64, using Python 3.4.3 and
-requests 2.7.0.
+I wrote and ran them on Windows 7 x86-64, using Python 3.5.0 and
+requests 2.9.1.
 
 ## Status
 
 This program is finished!
 
 Those scripts served their purpose, generating a good, basic database
-for MovieWar.
-
-I plan no further development on them.
+for MovieWar. I plan no further development on them.
 
 ## License
 
 Like all my hobby projects, this is Free Software. See the [Documentation][]
 folder for more information. No warranty though.
 
-[Documentation]: https://github.com/Beluki/MovieWarDBGen/tree/master/Documentation
+[Documentation]: Documentation
 
