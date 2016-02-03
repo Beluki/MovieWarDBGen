@@ -12,7 +12,7 @@ already available in the [Releases][] tab.
 
 ## How it works
 
-The first script, `00 download freebase.py`, uses the [Freebase API][]
+The first script, [00 download freebase.py][], uses the [Freebase API][]
 to download information for about 9200 movies, using Brad Bourland's
 [top movies list][] as a source.
 
@@ -35,7 +35,7 @@ All data gathered, saving...
 
 Freebase is a great resource, but nothing is perfect.
 
-The second script, `01 convert freebase.py`, sanitizes the list.
+The second script, [01 convert freebase.py][], sanitizes the list.
 It removes movies with no title or release date and sorts the movies by name.
 It also checks the release date to be between 1900 and 2000, which should be
 true for all the movies in the list.
@@ -52,7 +52,7 @@ Invalid year range: 2004 for movie: The Big Bounce, skipping...
 Invalid year range: 2004 for movie: Grizzly Falls, skipping...
 ```
 
-The third script, `02 match omdb.py`, uses the [OMDB API][] to check
+The third script, [02 match omdb.py][], uses the [OMDB API][] to check
 that the movie names/dates are actually correct. Only the movies that have the
 exact same title and date on both Freebase and OMDB are kept.
 
@@ -77,7 +77,7 @@ Sample output:
 10 - ok: 6 miss: 4 - movie ok.
 ```
 
-The fourth script, `03 collapse years.py`, looks for duplicate movie names
+The fourth script, [03 collapse years.py][], looks for duplicate movie names
 and years. For example, it converts this:
 
 ```json
@@ -99,6 +99,11 @@ Sample output:
 ```text
 Skipping duplicate year for movie: A Doll's House...
 ```
+
+[00 download freebase.py]: Source/00 download freebase.py
+[01 convert freebase.py]: Source/01 convert freebase.py
+[02 match omdb.py]: Source/02 match omdb.py
+[03 collapse years.py]: Source/03 collapse years.py
 
 ## Portability
 
