@@ -100,7 +100,7 @@ Sample output:
 Skipping duplicate year for movie: A Doll's House...
 ```
 
-[00 download freebase.py]: "Source/00 download freebase.py"
+[00 download freebase.py]: Source/00%20download%20freebase.py
 [01 convert freebase.py]: Source/01 convert freebase.py
 [02 match omdb.py]: Source/02 match omdb.py
 [03 collapse years.py]: Source/03 collapse years.py
